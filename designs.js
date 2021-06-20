@@ -1,14 +1,16 @@
 
-// Set variable for the canvas
+// Set variables for the canvas and colour picker
 const myTable = document.getElementById('pixelCanvas');
+const fillColour = document.getElementById('colorPicker');
+const form = document.getElementById('sizePicker');
 
-//Define makeGrid() function
+//Define function to create the grid
 function makeGrid(rows,cells) {
     //Re-set table back to original state
     myTable.innerHTML = '';
 
     // Create table body
-    const tableBody = document.createElement("tbody");
+    const tableBody = document.createElement('tbody');
 
     //Create the grid
     for(let r = 0; r < rows; r++) {
@@ -17,6 +19,9 @@ function makeGrid(rows,cells) {
         //Create cells & append to row
         for (let c = 0; c < cells; c++) {
             const cell = document.createElement('td');
+            cell.addEventListener('click', function (evt) {
+                evt.target.style.backgroundColor = fillColour.value;
+            })
             row.appendChild(cell);
         }
         //Append the row to the table body
@@ -27,18 +32,9 @@ function makeGrid(rows,cells) {
 };
 
 // Listen for sizePicker form submission & then trigger makeGrid()
-document.getElementById('sizePicker').addEventListener('submit', function (evt) {
+form.addEventListener('submit', function (evt) {
     const rows = document.getElementById('inputHeight').value;
     const cells = document.getElementById('inputWidth').value;
     makeGrid(rows, cells);
     evt.preventDefault();
-});
-
-// Listen for a click on a <td> element
-// Listener on table to prevent listeners on each <td>
-myTable.addEventListener('click', function (evt) {
-    const fillColour = document.getElementById('colorPicker');
-    if (evt.target.nodeName === 'TD') {
-        evt.target.style.backgroundColor = fillColour.value;
-    }
 });
