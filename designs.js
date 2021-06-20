@@ -40,5 +40,5 @@ myTable.addEventListener('click', function (evt) {
     const fillColour = document.getElementById('colorPicker');
     if (evt.target.nodeName === 'TD') {
         evt.target.style.backgroundColor = fillColour.value;
-  }
+    }
 });
